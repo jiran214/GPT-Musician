@@ -1,6 +1,9 @@
 # GPT-Musician
 AI生成简单音乐 —— 使用ChatGPT稳定生成和播放
+
 项目思路：Prompt -> ABC记谱法表示的音乐 -> abc转wav
+点个STar支持一下
+
 
 
 ## 快速开始
