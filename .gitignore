@@ -159,3 +159,6 @@ cython_debug/
 
 *.wav
 .idea/
+
+!蔷薇殇.wav
+!寂静的夜晚.wav
