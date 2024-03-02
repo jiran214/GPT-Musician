@@ -6,7 +6,9 @@ AI生成简单音乐 —— 使用ChatGPT稳定生成和播放
 ## 快速开始
 安装python >= 3.8
 ```shell
-# 安装依赖
+# 拉取项目 
+git clone https://github.com/jiran214/GPT-Musician.git
+# 进入目录安装依赖
 pip install symusic openai
 # 查看用法
 python main -h
