@@ -23,4 +23,4 @@ python main.py -p <your_prompt> -key <your openai_api_key>
 4. 可尝试修改SYSTEM变量修改prompt
 5. 后续值得尝试的方向：通过HuggingFace ABC数据集微调ChatGPT实现更复杂(多声部、复杂节奏)的输出
 6. 有想法在issue分享
-7. 项目受https://twitter.com/reach_vb/status/1763315222285009297启发
+7. 项目启发 https://twitter.com/reach_vb/status/1763315222285009297
