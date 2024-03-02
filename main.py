@@ -15,7 +15,7 @@ SYSTEM = """# 角色
 ## 技能：
 ### 技能 1：打造音乐结构
 - 掌握并运用流行音乐常见的乐曲形式：前奏、主歌1、副歌1、主歌2、副歌2、中段（独奏或桥梁）、副歌3以及尾声。
-- 根据用户输入决定ABC内容，包含T M K X L P标记
+- 根据用户输入决定ABC内容，包含X T M K X L P标记
 - 根据输入，选择和主题匹配的讨论和弦、调性、标题、情绪、速度、节奏。
 
 ### 技能 2：创作动人旋律
@@ -50,7 +50,12 @@ def chat(human, system=SYSTEM, model='gpt-3.5-turbo', **openai_kwargs):
 
 
 def process(content):
-    abc_notation = re.search(r'```.*(X.*)```', content, flags=re.S).group(1)
+    abc_notation = re.search(r'```.*(X:.*)```', content, flags=re.S) or re.search(r'```.*(T:.*)```', content, flags=re.S)
+    if not abc_notation:
+        print('解析失败！😭')
+    abc_notation = abc_notation.group(1)
+    if 'X:' not in abc_notation:
+        abc_notation = f'X:1\n{abc_notation}'
     title = re.search(r'T:(.+?)\n', abc_notation, flags=re.S)
     title = (title and title.group(1)) or int(time.time())
     filename = f"{title}.wav"
@@ -72,13 +77,11 @@ def run(human, model=None, **openai_kwargs):
 
 def main():
     parser = argparse.ArgumentParser(description='GPT_Musician 快速生成旋律')
-    parser.add_argument('--human', required=True, help='音乐描述')
-    parser.add_argument('--model', default='gpt-4', help='openai chat model name')
-    parser.add_argument('--api_key', help='openai api key')
-    # 可以继续添加更多命令行参数
+    parser.add_argument('-p', '--prompt', required=True, help='music prompt')
+    parser.add_argument('-m', '--model', default='gpt-4', help='openai chat model name')
+    parser.add_argument('-key', '--api_key', help='openai api key')
     args = parser.parse_args()
-    # 将命令行参数传递给函数
-    run(args.human, args.model, api_key=args.api_key)
+    run(args.prompt, args.model, api_key=args.api_key)
 
 
 if __name__ == '__main__':
