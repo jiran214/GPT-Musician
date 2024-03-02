@@ -12,8 +12,8 @@ git clone https://github.com/jiran214/GPT-Musician.git
 pip install symusic openai
 # 查看用法
 python main -h
-# 生成
-python3 main.py -p 把月光曲改成现代流行音乐 -key <your openai_api_key>
+# 生成 eg: python main.py -p 把月光曲改成现代流行音乐 -key xxx
+python main.py -p <your_prompt> -key <your openai_api_key>
 ```
 
 ## 想说的话
@@ -22,3 +22,5 @@ python3 main.py -p 把月光曲改成现代流行音乐 -key <your openai_api_ke
 3. prompt经常对应不上生成结果，prompt对音乐描述越简单成功率越高
 4. 可尝试修改SYSTEM变量修改prompt
 5. 后续值得尝试的方向：通过HuggingFace ABC数据集微调ChatGPT实现更复杂(多声部、复杂节奏)的输出
+6. 有想法在issue分享
+7. 项目受https://twitter.com/reach_vb/status/1763315222285009297启发
