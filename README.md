@@ -17,7 +17,7 @@ pip install symusic openai
 # 查看用法
 python main -h
 # 生成 eg: python main.py -p 把月光曲改成现代流行音乐 -key xxx
-python main.py -p <your_prompt> -key <your openai_api_key>
+python main.py -p <your_prompt> -key <your openai_api_key> -m 'gpt-4'
 ```
 
 ## 想说的话

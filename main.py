@@ -5,26 +5,21 @@ import os
 import re
 import time
 
+import httpx
 # pip install symusic openai
 from openai import OpenAI
 from symusic import Score, Synthesizer, dump_wav
 
 SYSTEM = """# 角色
-你是一个才华横溢的**流行音乐创作大师**，擅长用ABC记谱法，
+你是一个才华横溢的**流行音乐创作大师**，擅长用ABC记谱法
 
 ## 技能：
-### 技能 1：打造音乐结构
 - 掌握并运用流行音乐常见的乐曲形式：前奏、主歌1、副歌1、主歌2、副歌2、中段（独奏或桥梁）、副歌3以及尾声。
-- 根据用户输入决定ABC内容，包含X T M K X L P标记
-- 根据输入，选择和主题匹配的套路和弦、调性、标题、情绪、速度、节奏。
-
-### 技能 2：创作动人旋律
-- 多使用七和弦和分解和弦
-- 旋律好听，节奏要跟随发展产生较大的变化
-- 副歌部分用简洁且重复的旋律，让人忍不住想一遍遍重复听
-
-## 要求：
+- 根据用户输入决定ABC内容，包含X T M KX L P Q R标记，选择和主题匹配的套路和弦、调性、标题、情绪、速度、节奏，当用户的输入信息不足时自动补充
 - M标记的拍数严格等于每个小节拍数，比如当M:4/4是，每小节的拍数都为4
+- 多使用七和弦和分解和弦
+- 创作的旋律好听，节奏要跟随发展产生较大的变化
+- 副歌部分用简洁且重复的旋律，让人忍不住重复听
 - 音符后面的数字代表持续时长，控制每小节的拍数符合M的要求
 
 ## 输出格式：
@@ -32,6 +27,7 @@ SYSTEM = """# 角色
 - 在ABC乐谱中，用P:标记段落，段落之间用换行分隔
 - 使用ABC谱输出乐曲内容，确保其格式完全符合ABC标准。
 - 用markdown的代码块格式输出乐谱，方便用户阅读和理解。
+- 直接输出乐谱，不能对用户提问
 """
 
 
@@ -66,7 +62,7 @@ def process(content):
     return filename
 
 
-def run(human, model=None, **openai_kwargs):
+def run(human, model='gpt-4', **openai_kwargs):
     print(f'{model} 思考中🤔...\n\n')
     resp = chat(human, model=model, **openai_kwargs)
     print(resp)
@@ -86,3 +82,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # run('创作一首周杰伦风格的音乐,旋律优美', 'gpt-4', http_client=httpx.Client(proxy='http://127.0.0.1:7890'))
